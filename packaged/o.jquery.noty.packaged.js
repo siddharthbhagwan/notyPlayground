@@ -17,6 +17,7 @@
 
  @license Licensed under the MIT licenses: http://www.opensource.org/licenses/mit-license.php
  */
+
     if(typeof Object.create !== 'function') {
         Object.create = function(o) {
             function F() {
@@ -27,14 +28,9 @@
         };
     }
 
-// Section I ----------------------------------------------------------------------------------------------------------------------------------
-
     var NotyObject = {
 
         init: function(options) {
-
-            // This is what we start with
-            console.log(this.options);
 
             // Mix in the passed in options with the default options
             this.options = $.extend({}, $.noty.defaults, options);
@@ -58,12 +54,8 @@
             // add id for the noty object
             this.options.id = 'noty_' + (new Date().getTime() * Math.floor(Math.random() * 1000000));
 
-            // add back any user options that might have bene over ridden
+            // add mack any user options that might have bene over ridden
             this.options = $.extend({}, this.options, options);
-
-            // This is the object on which we shall be calling the build method. Compare it with the obejct which we start with in
-            // order to better understand the operation in between
-            console.log(this);
 
             // Build the noty dom initial structure
             this._build();
@@ -345,8 +337,6 @@
 
     }; // end NotyObject
 
-// Section II ----------------------------------------------------------------------------------------------------------------------------------
-
     $.notyRenderer = {};
 
     $.notyRenderer.init = function(options) {
@@ -371,7 +361,7 @@
         if($.type(instance) === 'object') {
             if(instance.options.dismissQueue) {
                 if(instance.options.maxVisible > 0) {
-                    if($(instance.options.layout.container.selector + ' > li').length < instance.options.maxVisible) {
+                    if($(instance.options.layout.container.selector + ' li').length < instance.options.maxVisible) {
                         $.notyRenderer.show($.noty.queue.shift());
                     }
                     else {
@@ -456,8 +446,6 @@
     $.notyRenderer.setModalCount = function(arg) {
         return $('.noty_modal').data('noty_modal_count', $.notyRenderer.getModalCount() + arg);
     };
-
-// Section III --------------------------------------------------------------------------------------------------------------------------------
 
     // This is for custom container
     $.fn.noty = function(options) {
@@ -1453,4 +1441,3 @@ $.noty.themes.relax = {
 return window.noty;
 
 });
-
